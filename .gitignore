@@ -1,0 +1,59 @@
+# ======== Frontend (React) ========
+frontend/node_modules/
+frontend/.pnp
+frontend.pnp.js
+frontend/build/
+frontend/dist/
+
+# dotenv
+frontend/.env
+frontend/.env.local
+frontend/.env.development.local
+frontend/.env.test.local
+frontend/.env.production.local
+
+# IDE/editor files
+frontend/.vscode/
+frontend/.DS_Store
+
+# log files
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+frontend/pnpm-debug.log*
+
+# Node.js
+backend/node_modules/
+
+# Logs
+backend/logs
+backend/*.log
+backend/npm-debug.log*
+
+# Dependency directories
+backend/pids
+backend/logs
+backend/*.pid
+backend/*.seed
+backend/*.pid.lock
+
+# Optional npm cache directory
+backend/.npm
+
+# Optional eslint cache
+backend/.eslintcache
+
+# Optional REPL history
+backend/.node_repl_history
+
+# Environment variables
+backend/.env*
+
+# ======== General ========
+backend/.env
+backend/.DS_Store
+backend/*.log
+backend/*.tmp
+backend/*.temp
+backend/.vscode/
+backend/.idea/
