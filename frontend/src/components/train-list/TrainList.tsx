@@ -34,7 +34,7 @@ export default function TrainList() {
         <table className="table table-striped">
             <thead>
             <tr>
-                <th>Train umber</th>
+                <th>Train number</th>
                 <th>Direction</th>
                 <th>Departure station</th>
                 <th>Arrival station</th>

@@ -54,17 +54,17 @@ export const getTrain = asyncHandler(async (req, res) => {
  * @returns {200} { status: 'success', data: train }
  */
 export const updateTrain = asyncHandler(async (req, res) => {
-    console.log("\n\n\n")
 
     const id = Number(req.params.id);
-    const { trainNumber, direction, departureStationName, arrivalStationName,
+
+    const { trainNumber, direction, departureStation, arrivalStation,
         departureTime, arrivalTime } = req.body;
     const updated = await TrainService.updateTrain(
       id,
       trainNumber,
       direction,
-      departureStationName,
-      arrivalStationName,
+      departureStation,
+      arrivalStation,
       new Date(departureTime),
       new Date(arrivalTime)
     );

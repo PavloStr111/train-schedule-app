@@ -11,8 +11,12 @@ import {
 import { handleApiError } from '../../utils/errorHandler';
 
 export default function TrainForm() {
+
   const { id } = useParams<{ id: string }>();
+
+  // Whether it is a form for update or creation
   const isEdit = Boolean(id);
+
   const nav = useNavigate();
 
   const {
@@ -46,12 +50,18 @@ export default function TrainForm() {
     try {
       if(data.departureStation === data.arrivalStation)
         throw new Error("You cannot select the same station twice");
-      
-      if (isEdit) 
+      console.log('Ku')
+      console.log(data)
+      if (isEdit) {
+        
         await updateTrain(Number(id), data);
+      }
+      else {
+        await createTrain(data);
+      }
 
-      else await createTrain(data);
       nav('/trains');
+
     } catch (e) {
       setError(handleApiError(e));
     }
@@ -63,22 +73,30 @@ export default function TrainForm() {
 
       {error && <div className="alert alert-danger">{error}</div>}
 
+      {/* List of label - input pairs */}
       {['trainNumber', 'direction', 'departureTime', 'arrivalTime'].map((field) => (
+
         <div className="mb-3" key={field}>
           <label className="form-label">{field}</label>
           <input
-            type={field.includes('Time') ? 'datetime-local' : 'text'}
-            className={`form-control ${errors[field as keyof TrainDto] ? 'is-invalid' : ''}`}
+            type={field.includes('Time') ? 'datetime-local' : 'text'} // Special type for datetime values
+            className={`form-control ${errors[field as keyof TrainDto] ? 'is-invalid' : ''}`} // styling in case of error
             {...register(field as keyof TrainDto, { required: true })}
           />
+          {/* Error line */}
           {errors[field as keyof TrainDto] && (
-            <div className="invalid-feedback">This field is required</div>
+            <div className="invalid-feedback">{
+              errors[field as keyof TrainDto] ? 
+                errors[field as keyof TrainDto]?.message: "Unknown error"}
+            </div>
           )}
         </div>
+
       ))}
 
       {['departureStation', 'arrivalStation'].map((field) => (
         <div className="mb-3" key={field}>
+
           <label className="form-label">{field}</label>
           <select
             className={`form-select ${errors[field as keyof TrainDto] ? 'is-invalid' : ''}`}
@@ -91,14 +109,19 @@ export default function TrainForm() {
               </option>
             ))}
           </select>
+
+          {/* Error line */}
           {errors[field as keyof TrainDto] && (
-            <div className="invalid-feedback">Station is required</div>
+            <div className="invalid-feedback">{
+              errors[field as keyof TrainDto] ? 
+                errors[field as keyof TrainDto]?.message: "Unknown error"}
+            </div>
           )}
         </div>
       ))}
 
       <button className="btn btn-success">{isEdit ? 'Update' : 'Create'}</button>
-      <button><Link to='/trains'>Cancel</Link></button>
+      <button className="btn btn-danger"><Link to='/trains'>Cancel</Link></button>
     </form>
   );
 }
