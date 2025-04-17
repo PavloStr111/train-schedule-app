@@ -1,7 +1,7 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { registerUser } from '../../services/authService';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function RegisterForm() {
   const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<{ firstName: string, lastName: string, email: string; password: string }>();
@@ -65,7 +65,11 @@ export default function RegisterForm() {
           {errors.password && <div className="invalid-feedback">{errors.password.message}</div>}
       </div>
 
-      <button disabled={isSubmitting} className="btn btn-primary w-100">
+      <div className="d-flex justify-content-center">
+        <Link className='mb-3 center-block' to='/login'>Log in</Link>
+      </div>
+
+      <button disabled={isSubmitting} className="btn btn-primary w-100 mb-3">
         {isSubmitting ? '...' : 'Register'}
       </button>
 

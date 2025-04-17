@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { TrainDto, toTrainDto, Station } from '../../types/Train';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import {
   createTrain,
   updateTrain,
@@ -44,7 +44,12 @@ export default function TrainForm() {
 
   const onSubmit = async (data: TrainDto) => {
     try {
-      if (isEdit) await updateTrain(Number(id), data);
+      if(data.departureStation === data.arrivalStation)
+        throw new Error("You cannot select the same station twice");
+      
+      if (isEdit) 
+        await updateTrain(Number(id), data);
+
       else await createTrain(data);
       nav('/trains');
     } catch (e) {
@@ -54,7 +59,7 @@ export default function TrainForm() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="mx-auto mt-4" style={{ maxWidth: 500 }}>
-      <h2 className="mb-4">{isEdit ? 'Оновити' : 'Додати'} поїзд</h2>
+      <h2 className="mb-4">{isEdit ? 'Update' : 'Add'} train</h2>
 
       {error && <div className="alert alert-danger">{error}</div>}
 
@@ -67,7 +72,7 @@ export default function TrainForm() {
             {...register(field as keyof TrainDto, { required: true })}
           />
           {errors[field as keyof TrainDto] && (
-            <div className="invalid-feedback">Це поле обов’язкове</div>
+            <div className="invalid-feedback">This field is required</div>
           )}
         </div>
       ))}
@@ -79,7 +84,7 @@ export default function TrainForm() {
             className={`form-select ${errors[field as keyof TrainDto] ? 'is-invalid' : ''}`}
             {...register(field as keyof TrainDto, { required: true })}
           >
-            <option value="">Оберіть станцію</option>
+            <option value="">Select station</option>
             {stationOptions.map((s) => (
               <option key={s.id} value={s.name}>
                 {s.name}
@@ -87,12 +92,13 @@ export default function TrainForm() {
             ))}
           </select>
           {errors[field as keyof TrainDto] && (
-            <div className="invalid-feedback">Станцію обов'язково обрати</div>
+            <div className="invalid-feedback">Station is required</div>
           )}
         </div>
       ))}
 
-      <button className="btn btn-success">{isEdit ? 'Оновити' : 'Створити'}</button>
+      <button className="btn btn-success">{isEdit ? 'Update' : 'Create'}</button>
+      <button><Link to='/trains'>Cancel</Link></button>
     </form>
   );
 }
