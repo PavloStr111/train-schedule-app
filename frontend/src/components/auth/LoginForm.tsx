@@ -22,7 +22,9 @@ export default function LoginForm() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} style={{ maxWidth: 400 }} className="mx-auto mt-5">
-      <h2 className="mb-4">Log in</h2>
+      <h2 className='mb-5'>Welcome to train scheduler!</h2>
+      <h4 className="mb-4">Log in</h4>
+      
 
       <div className="mb-3">
           <label className="form-label">Email</label>

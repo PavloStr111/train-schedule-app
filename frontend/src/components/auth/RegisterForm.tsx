@@ -17,8 +17,9 @@ export default function RegisterForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} style={{ maxWidth: 400 }} className="mx-auto mt-5">
-      <h2 className="mb-4">Registration</h2>
+    <form onSubmit={handleSubmit(onSubmit)} style={{ maxWidth: 400 }} className="mx-auto mt-3">
+      <h2 className='mb-4'>Welcome to train scheduler!</h2>
+      <h4 className="mb-3">Registration</h4>
 
       <div className="mb-3">
           <label className="form-label">First Name</label>

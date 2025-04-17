@@ -3,14 +3,14 @@ import { TrainService } from "../services/train.repository";
 import { asyncHandler } from "../middlewares/asyncHandler";
 import { AppError } from "../errors/AppError";
 
-/**
- * @route   GET /api/v1/trains
- * @desc    Gets all trains
- * @access  Public
- *
- * @returns {200} { status: 'success', data: trains }
- * @throws  {400} Validation Error
- */
+// /**
+//  * @route   GET /api/v1/trains
+//  * @desc    Gets all trains
+//  * @access  Public
+//  *
+//  * @returns {200} { status: 'success', data: trains }
+//  * @throws  {400} Validation Error
+//  */
 export const getTrains = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
 
     const trains = await TrainService.getAllTrains();
@@ -18,7 +18,7 @@ export const getTrains = asyncHandler(async (req: Request, res: Response, next: 
 });
 
 /**
- * @route   POST /api/v1/train/:id
+ * @route   GET /api/v1/train/:id
  * @desc    Gets train with an appropriate id
  * @access  Public
  *
@@ -43,6 +43,8 @@ export const getTrain = asyncHandler(async (req, res) => {
       new Date(departureTime),
       new Date(arrivalTime)
     );
+    if(!train)
+      throw new AppError("Trains not found", 404);
     res.status(201).json({ status: "success", data: train });
   });
 
@@ -68,6 +70,8 @@ export const updateTrain = asyncHandler(async (req, res) => {
       new Date(departureTime),
       new Date(arrivalTime)
     );
+    if(!updated)
+      throw new AppError("Update error", 404);
     res.status(200).json({ status: "success", data: updated });
   });
   

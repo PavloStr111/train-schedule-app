@@ -17,6 +17,14 @@ export class TrainService{
 
         return await trainRepository.findOneBy({id: id});
     }
+    static async getPaginatedTrains({ skip, limit }: { skip: number; limit: number }) {
+        return trainRepository.findAndCount({
+            skip, take: limit, order: {id: 'asc'}
+        });
+    }
+    static async countTrains() {
+        return trainRepository.count();
+    }
 
     static async createTrain(
         trainNumber: string, 
