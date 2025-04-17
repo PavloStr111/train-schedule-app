@@ -10,6 +10,7 @@ dotenv.config({path: '../config.env'});
 const userRepository = AppDataSource.getRepository(User);
 
 export class AuthService {
+  
   static async register(firstName: string, lastName: string, email: string, password: string): Promise<User> {
     const existingUser = await userRepository.findOneBy({ email });
 

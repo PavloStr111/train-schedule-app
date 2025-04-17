@@ -4,7 +4,7 @@ import { asyncHandler } from "../middlewares/asyncHandler";
 import { AppError } from "../errors/AppError";
 
 /**
- * @route   POST /api/v1/trains
+ * @route   GET /api/v1/trains
  * @desc    Gets all trains
  * @access  Public
  *
@@ -51,14 +51,12 @@ export const getTrain = asyncHandler(async (req, res) => {
  * @desc    Updates an appropriate train
  * @access  Public
  *
- * @returns {200} { status: 'success', data: trains }
+ * @returns {200} { status: 'success', data: train }
  */
 export const updateTrain = asyncHandler(async (req, res) => {
     console.log("\n\n\n")
 
     const id = Number(req.params.id);
-    console.log("dhythytd")
-    console.log(req.body)
     const { trainNumber, direction, departureStationName, arrivalStationName,
         departureTime, arrivalTime } = req.body;
     const updated = await TrainService.updateTrain(
@@ -73,7 +71,13 @@ export const updateTrain = asyncHandler(async (req, res) => {
     res.status(200).json({ status: "success", data: updated });
   });
   
-
+/**
+ * @route   DELETE /api/v1/train/:id
+ * @desc    Deletes an appropriate train
+ * @access  Public
+ *
+ * @returns {200} { status: 'success', data: trainId }
+ */
 export const deleteTrain = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
 
     const trainId = Number(req.params.id);

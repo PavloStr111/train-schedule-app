@@ -2,7 +2,7 @@ import { asyncHandler } from "../middlewares/asyncHandler";
 import { StationService } from "../services/station.repository";
 
 /**
- * @route   POST /api/v1/stations
+ * @route   GET /api/v1/stations
  * @desc    Gets all stations
  * @access  Public
  *
