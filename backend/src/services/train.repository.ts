@@ -13,6 +13,11 @@ export class TrainService{
         return await trainRepository.find();
     }
 
+    static async getTrain(id: number): Promise<Train> {
+
+        return await trainRepository.findOneBy({id: id});
+    }
+
     static async createTrain(
         trainNumber: string, 
         direction: string, 
@@ -64,7 +69,6 @@ export class TrainService{
             throw new AppError('Train for update not found', 404);
         }
     
-        // Знайти станції по назві
         const departureStation = await stationRepository.findOneBy({ name: departureStationName });
         const arrivalStation = await stationRepository.findOneBy({ name: arrivalStationName });
     

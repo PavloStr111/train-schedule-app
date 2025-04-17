@@ -4,7 +4,7 @@ import { AppDataSource } from './data-source';
 
 dotenv.config({path: './config.env'});
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5000;
 
 AppDataSource.initialize()
     .then(()=>{
