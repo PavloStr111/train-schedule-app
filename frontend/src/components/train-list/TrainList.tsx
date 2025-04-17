@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { getTrains, deleteTrain } from '../../services/trainService';
 import { Train } from '../../types/Train';
 import { useNavigate } from 'react-router-dom';
+import TrainElement from './TrainElement';
 
 export default function TrainList() {
 
@@ -18,13 +19,6 @@ export default function TrainList() {
     useEffect(() => { 
         load(); 
     }, []);
-
-    const onDelete = async (id: number) => {
-        if (window.confirm('Confirm train deletion')) {
-            await deleteTrain(id);
-            load();
-        }
-    };
 
     return (
         <div className="container mt-4">
@@ -44,24 +38,7 @@ export default function TrainList() {
             </thead>
             <tbody>
             {trains.map(t => (
-                <tr key={t.id}>
-                <td>{t.trainNumber}</td>
-                <td>{t.direction}</td>
-                <td>{t.departureStation.name}</td>
-                <td>{t.arrivalStation.name}</td>
-                <td>{t.departureTime}</td>
-                <td>{t.arrivalTime}</td>
-                <td>
-                    <button className="btn btn-sm btn-warning me-2"
-                    onClick={() => nav(`/trains/${t.id}/edit`)}>
-                    Update
-                    </button>
-                    <button className="btn btn-sm btn-danger"
-                    onClick={() => onDelete(t.id)}>
-                    Delete
-                    </button>
-                </td>
-                </tr>
+                <TrainElement key={t.id} {...t} load={load}/>
             ))}
             </tbody>
         </table>

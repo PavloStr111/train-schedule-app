@@ -34,12 +34,12 @@ export const getTrain = asyncHandler(async (req, res) => {
   });
 
   export const createTrain = asyncHandler(async (req, res) => {
-    const { trainNumber, direction, departureStationName, arrivalStationName, departureTime, arrivalTime } = req.body;
+    const { trainNumber, direction, departureStation, arrivalStation, departureTime, arrivalTime } = req.body;
     const train = await TrainService.createTrain(
       trainNumber,
       direction,
-      departureStationName,
-      arrivalStationName,
+      departureStation,
+      arrivalStation,
       new Date(departureTime),
       new Date(arrivalTime)
     );
